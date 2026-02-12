@@ -32,8 +32,14 @@
   <p>Remaining clicks: <span class="num">{remaining}</span></p>
 
   <div class="row">
-    <label>Max clicks:</label>
-    <input type="number" bind:value={maxClicks} on:input={onMaxChange} />
+    <label for="maxClicks">Max clicks:</label>
+    <input
+    id="maxClicks"
+    type="number"
+    bind:value={maxClicks}
+    on:input={onMaxChange}
+    />
+
   </div>
 
   <div class="btns">
