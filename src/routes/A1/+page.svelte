@@ -15,9 +15,12 @@
 
   onMount(async () => {
     try {
-      const url = `${base}/summer_movies.csv`;
-      const data = await d3.csv(url, d3.autoType);
+      const csvPath = `${base}/summer_movies.csv`;
+
+      const data = await d3.csv(csvPath, d3.autoType);
       movies = data as Movie[];
+
+      console.log("csvPath:", csvPath);
       console.log("movies loaded:", movies.length);
     } catch (err) {
       console.error("failed to load csv:", err);
@@ -28,58 +31,32 @@
   });
 </script>
 
-
-
 <h1>Summer Movies Dataset (A1)</h1>
 
-
 {#if loading}
-
   <p>Loading data...</p>
-
 {:else if errorMsg}
-
-  <p style="color:red;">
-    Error loading data: {errorMsg}
-  </p>
-
+  <p style="color:red;">Error loading data: {errorMsg}</p>
 {:else}
-
-  <p style="color:green;">
-    Data loaded successfully. movies length: {movies.length}
-  </p>
-
+  <p style="color:green;"> Data loaded successfully. movies length: {movies.length}</p>
 
   {#if movies.length > 0}
-
-    <hr>
+    <hr />
 
     <h2>Part 1: Genre Distribution</h2>
-
     <Bar {movies} />
 
-
-    <hr>
+    <hr />
 
     <h2>Part 2: Q1 — Annual Top 3 Genres Over Time</h2>
-
     <Top3Bump {movies} />
 
-
-    <hr>
+    <hr />
 
     <h2>Part 3: Q2 — Genre Correlation Heatmap</h2>
-
     <GenreHeatmap {movies} />
 
-
-    <hr>
-
-    <p style="color:gray;">
-      End of page.
-    </p>
-
-
+    <hr />
+    <p style="color:gray;">End of page.</p>
   {/if}
-
 {/if}
