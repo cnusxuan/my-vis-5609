@@ -1,6 +1,7 @@
 <script lang="ts">
   import { onMount } from "svelte";
   import * as d3 from "d3";
+  import { base } from "$app/paths";
 
   import Bar from "$lib/Bar.svelte";
   import Top3Bump from "$lib/Top3Bump.svelte";
@@ -14,26 +15,19 @@
 
   onMount(async () => {
     try {
-      const data = await d3.csv("/summer_movies.csv", d3.autoType);
-
+      const url = `${base}/summer_movies.csv`;
+      const data = await d3.csv(url, d3.autoType);
       movies = data as Movie[];
-
-      console.log("movies loaded:", movies);
-      console.log("movies length:", movies.length);
-
+      console.log("movies loaded:", movies.length);
     } catch (err) {
-
       console.error("failed to load csv:", err);
-
       errorMsg = String(err);
-
     } finally {
-
       loading = false;
-
     }
   });
 </script>
+
 
 
 <h1>Summer Movies Dataset (A1)</h1>
@@ -52,7 +46,7 @@
 {:else}
 
   <p style="color:green;">
-    ✅ Data loaded successfully. movies length: {movies.length}
+    Data loaded successfully. movies length: {movies.length}
   </p>
 
 
