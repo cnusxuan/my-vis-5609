@@ -58,12 +58,10 @@
     const yearly = computeTop3ByYear(movies);
     const years = yearly.map(d => d.year);
 
-    // all genres that ever appear in top3
     const topGenres = Array.from(
       new Set(yearly.flatMap(d => d.top.map(t => t.genre)))
     ).sort(d3.ascending);
 
-    // build series: for each genre, points across years with rank or null
     const series = topGenres.map((genre) => {
       const pts = yearly.map((d) => {
         const found = d.top.find(t => t.genre === genre);
@@ -83,7 +81,6 @@
       .domain([3, 1]) // rank 1 on top
       .range([height - margin.bottom, margin.top]);
 
-    // axes
     svg.append("g")
       .attr("transform", `translate(0,${height - margin.bottom})`)
       .call(d3.axisBottom(x).tickFormat(d3.format("d")))

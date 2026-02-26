@@ -51,7 +51,6 @@
       .range([margin.top, height - margin.bottom])
       .padding(0.12);
 
-    // Bars
     const bars = svg
       .append("g")
       .selectAll("rect")
@@ -62,7 +61,6 @@
       .attr("height", y.bandwidth())
       .attr("width", (d) => x(d.count) - margin.left);
 
-    // Value labels
     svg
       .append("g")
       .selectAll("text")
@@ -74,7 +72,6 @@
       .attr("font-size", 12)
       .text((d) => d.count);
 
-    // Axes
     svg
       .append("g")
       .attr("transform", `translate(0,${height - margin.bottom})`)
@@ -87,7 +84,6 @@
       .call(d3.axisLeft(y))
       .call((g) => g.selectAll("text").attr("font-size", 12));
 
-    // Axis labels
     svg
       .append("text")
       .attr("x", (margin.left + width - margin.right) / 2)
@@ -108,7 +104,6 @@
       )
       .text("Genre");
 
-    // Tooltip interactions
     const tooltip = d3.select(tooltipEl);
 
     bars
@@ -130,7 +125,6 @@
 
   onMount(draw);
 
-  // re-draw whenever movies changes
   $: if (movies && movies.length > 0) {
     draw();
   }
