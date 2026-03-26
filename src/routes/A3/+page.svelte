@@ -1,5 +1,4 @@
 <script lang="ts">
-    export const prerender = true;
     import { onMount } from "svelte";
     import * as THREE from "three";
     import { FontLoader, Font } from "three/addons/loaders/FontLoader.js";
