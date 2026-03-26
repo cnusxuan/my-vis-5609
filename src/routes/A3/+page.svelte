@@ -12,6 +12,7 @@
 
     let movies: TMovie[] = $state([]);
     let unitObjects: THREE.Mesh[] = [];
+    let specialObject: THREE.Mesh | null = null;
 
     // Stacked data: each year has counts per genre
     type TStackRow = {
@@ -195,6 +196,17 @@
         //     if (gltf.animations.length > 0) { ... }
         //   - Feel free to add extra static models as decoration (trees, buildings, etc.)!
 
+        const specialGeo = new THREE.TorusKnotGeometry(40, 12, 100, 16);
+        const specialMat = new THREE.MeshPhysicalMaterial({
+            color: 0xffd700,
+            metalness: 0.8,
+            roughness: 0.2,
+        });
+        const specialObject = new THREE.Mesh(specialGeo, specialMat);
+        specialObject.position.set(-250, FLOOR + 250, 250);
+        specialObject.castShadow = true;
+        specialObject.receiveShadow = true;
+        scene.add(specialObject);
         // Load bird models (linear motion)
         const birdModels = [
             {
@@ -467,7 +479,11 @@
             unitObjects.forEach((obj) => {
                 obj.rotation.y += 0.01;
             });
-
+            if (specialObject) {
+                specialObject.rotation.x += 0.01;
+                specialObject.rotation.y += 0.02;
+                specialObject.position.y = FLOOR + 250 + Math.sin(Date.now() * 0.002) * 20;
+            }
             // TODO: Customize the animation behavior for your own models.
             // Birds - linear motion
             morphs.forEach((morph) => {
