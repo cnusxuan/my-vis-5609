@@ -202,7 +202,7 @@
             metalness: 0.8,
             roughness: 0.2,
         });
-        const specialObject = new THREE.Mesh(specialGeo, specialMat);
+        specialObject = new THREE.Mesh(specialGeo, specialMat);
         specialObject.position.set(-250, FLOOR + 250, 250);
         specialObject.castShadow = true;
         specialObject.receiveShadow = true;
