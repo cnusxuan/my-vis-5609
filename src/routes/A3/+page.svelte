@@ -11,6 +11,7 @@
     import { base } from "$app/paths";
 
     let movies: TMovie[] = $state([]);
+    let unitObjects: THREE.Mesh[] = [];
 
     // Stacked data: each year has counts per genre
     type TStackRow = {
@@ -255,6 +256,7 @@
                 );
 
                 scene.add(mesh);
+                unitObjects.push(mesh);
                 horseMorphs.push(mesh);
             });
         });
@@ -346,7 +348,6 @@
             });
         });
 
-        // 年份文字（直接复制你原来的）
         stackData.forEach((row) => {
             const x = xScale(row.year)! + bandwidth / 2;
 
@@ -462,6 +463,10 @@
         if (animating) {
             mixer.update(delta);
             horseMixer.update(delta);
+
+            unitObjects.forEach((obj) => {
+                obj.rotation.y += 0.01;
+            });
 
             // TODO: Customize the animation behavior for your own models.
             // Birds - linear motion
