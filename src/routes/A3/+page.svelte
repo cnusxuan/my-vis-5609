@@ -8,6 +8,7 @@
     import { addGround, onWindowResize, loadModels } from "$lib/Helper-3D";
 
     import * as d3 from "d3";
+    import { base } from "$app/paths";
 
     let movies: TMovie[] = $state([]);
 
@@ -35,7 +36,7 @@
     //   - Count how many movies belong to each genre (Comedy, Romance, Drama)
     //   - Build a TStackRow[] array sorted by year
     async function loadCsv() {
-        const data = await d3.csv("/summer_movies.csv");
+        const data = await d3.csv(`${base}/summer_movies.csv`);
 
         console.log(data.columns);
         console.log(data[0]);
